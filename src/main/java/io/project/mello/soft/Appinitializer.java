@@ -4,21 +4,30 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class Appinitializer extends Application {
 
     public static AnnotationConfigApplicationContext ctx;
+    public AnchorPane root;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ctx= new AnnotationConfigApplicationContext();
-        ctx.register(AppConfig.class);
-        ctx.refresh();
+        Thread t1= new Thread(() -> {
+
+            ctx= new AnnotationConfigApplicationContext();
+            ctx.register(AppConfig.class);
+            ctx.refresh();
+        });
+
+        t1.start();
+        t1.join();
 
 
         URL resource = this.getClass().getResource("/viwe/mainpage.fxml");
@@ -29,6 +38,8 @@ public class Appinitializer extends Application {
         primaryStage.centerOnScreen();
         primaryStage.alwaysOnTopProperty();
         primaryStage.show();
+
+
 
     }
 }
