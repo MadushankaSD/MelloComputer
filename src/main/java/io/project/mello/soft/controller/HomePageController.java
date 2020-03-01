@@ -1,5 +1,6 @@
 package io.project.mello.soft.controller;
 
+import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -14,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 
 public class HomePageController {
@@ -25,6 +25,8 @@ public class HomePageController {
     public Text lable;
     public Text description;
     public AnchorPane root;
+    public static JFXProgressBar progressBar;
+
 
 
     public void navigate(MouseEvent mouseEvent) throws IOException {

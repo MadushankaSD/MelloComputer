@@ -4,12 +4,12 @@ public class CustomerTM {
     private String customerId;
     private String name;
     private String address;
-    private int telephonNo;
+    private long telephonNo;
 
     public CustomerTM() {
     }
 
-    public CustomerTM(String customerId, String name, String address, int telephonNo) {
+    public CustomerTM(String customerId, String name, String address, long telephonNo) {
         this.customerId = customerId;
         this.name = name;
         this.address = address;
@@ -40,11 +40,11 @@ public class CustomerTM {
         this.address = address;
     }
 
-    public int getTelephonNo() {
+    public long getTelephonNo() {
         return telephonNo;
     }
 
-    public void setTelephonNo(int telephonNo) {
+    public void setTelephonNo(long telephonNo) {
         this.telephonNo = telephonNo;
     }
 

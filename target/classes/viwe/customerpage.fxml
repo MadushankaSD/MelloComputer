@@ -15,7 +15,7 @@
    <children>
       <ImageView fitHeight="67.0" fitWidth="72.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#imageHomeClicked" onMouseEntered="#imageHomeEnterd" onMouseExited="#imageHomeExit" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../image/home.jpg" />
+            <Image url="@../image/home.png" />
          </image>
       </ImageView>
       <Text layoutX="151.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ANAGE CUSTOMER">
@@ -23,24 +23,24 @@
             <Font size="35.0" />
          </font>
       </Text>
-      <Text layoutX="100.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M">
+      <Text fill="#e5b90e" layoutX="96.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="M">
          <font>
-            <Font size="60.0" />
+            <Font name="FreeSerif" size="60.0" />
          </font>
       </Text>
       <JFXTextField fx:id="txtCustomerID" labelFloat="true" layoutX="18.0" layoutY="102.0" onKeyPressed="#OnKeyPressed" prefHeight="26.0" prefWidth="572.0" promptText="Customer ID" />
       <JFXTextField fx:id="txtAddress" labelFloat="true" layoutX="18.0" layoutY="219.0" onKeyPressed="#OnKeyPressed" prefHeight="26.0" prefWidth="572.0" promptText="CustomerAddress" />
-      <JFXTextField fx:id="txtName" layoutX="18.0" layoutY="161.0" onKeyPressed="#OnKeyPressed" prefHeight="26.0" prefWidth="572.0" promptText="CustomerName" />
+      <JFXTextField fx:id="txtName" labelFloat="true" layoutX="18.0" layoutY="161.0" onKeyPressed="#OnKeyPressed" prefHeight="26.0" prefWidth="572.0" promptText="CustomerName" />
       <JFXTextField fx:id="txtTelephoneNo" labelFloat="true" layoutX="18.0" layoutY="277.0" onKeyPressed="#OnKeyPressed" prefHeight="26.0" prefWidth="572.0" promptText="Telephone No" />
       <JFXButton fx:id="btnSave" layoutX="678.0" layoutY="148.0" onAction="#btnSaveOnAction" prefHeight="26.0" prefWidth="192.0" style="-fx-background-color: #6abf43;" text="SAVE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
-      <JFXButton layoutX="678.0" layoutY="200.0" onAction="#btnDeleteOnAction" prefHeight="26.0" prefWidth="192.0" style="-fx-background-color: #ff3c3c;" text="DELETE">
+      <JFXButton fx:id="btnDelete" layoutX="678.0" layoutY="200.0" onAction="#btnDeleteOnAction" prefHeight="26.0" prefWidth="192.0" style="-fx-background-color: #ff3c3c;" text="DELETE">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>
-      <JFXButton layoutX="678.0" layoutY="251.0" onAction="#btnClearOnAction" prefHeight="26.0" prefWidth="192.0" style="-fx-background-color: YELLOW;" text="CLEAR">
+      <JFXButton fx:id="btnClear" layoutX="678.0" layoutY="251.0" onAction="#btnClearOnAction" prefHeight="26.0" prefWidth="192.0" style="-fx-background-color: YELLOW;" text="CLEAR">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></JFXButton>

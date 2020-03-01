@@ -31,8 +31,8 @@
             <Font name="Tlwg Mono Bold" size="81.0" />
          </font>
       </Text>
-      <Text layoutX="639.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All KIND OF PC,MOBILE REPAIR &amp; ACCESORIES" />
-      <Text layoutX="704.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="D-04,NEW BUS STAND, BALANGODA" />
+      <Text layoutX="673.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produced By Madushanka (0712385700)" />
+      <Text layoutX="749.0" layoutY="573.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Right Recerved ©   -2020 " />
       <ImageView fx:id="settings" fitHeight="108.0" fitWidth="100.0" layoutX="752.0" layoutY="180.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/settings.gif" />

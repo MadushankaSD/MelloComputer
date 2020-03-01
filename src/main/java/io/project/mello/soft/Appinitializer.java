@@ -1,5 +1,6 @@
 package io.project.mello.soft;
 
+import io.project.mello.soft.controller.HomePageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.IOException;
 import java.net.URL;
 
 public class Appinitializer extends Application {
@@ -24,11 +24,9 @@ public class Appinitializer extends Application {
             ctx= new AnnotationConfigApplicationContext();
             ctx.register(AppConfig.class);
             ctx.refresh();
-        });
 
-        t1.start();
-        t1.join();
-
+         },"ctxTread");
+       t1.start();
 
         URL resource = this.getClass().getResource("/viwe/mainpage.fxml");
         Parent load = FXMLLoader.load(resource);
