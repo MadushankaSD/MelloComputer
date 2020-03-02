@@ -16,7 +16,7 @@ public interface ItemBO extends SuperBO {
 
     List<ItemDTO> findAllItems();
 
-    String getLastItemId();
+    String getItemId(String name);
 
     ItemDTO findItem(String itemId);
 

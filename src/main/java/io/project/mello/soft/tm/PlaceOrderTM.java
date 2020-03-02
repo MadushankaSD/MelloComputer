@@ -15,16 +15,23 @@ public class PlaceOrderTM {
     public PlaceOrderTM() {
     }
 
-    public PlaceOrderTM(String itemName, long qty, double unitPrice, double discount, String service, int warranty, double subTotal, Button delete) {
+    public PlaceOrderTM(String itemName, long qty, double unitPrice, double discount,int warranty, double subTotal, Button delete) {
         this.itemName = itemName;
         this.qty = qty;
         this.unitPrice = unitPrice;
         this.discount = discount;
+        this.warranty = warranty;
+        this.subTotal = subTotal;
+        this.delete = delete;
+    }
+
+    public PlaceOrderTM(String service, int warranty, double subTotal, Button delete) {
         this.service = service;
         this.warranty = warranty;
         this.subTotal = subTotal;
         this.delete = delete;
     }
+
 
     public String getItemName() {
         return itemName;

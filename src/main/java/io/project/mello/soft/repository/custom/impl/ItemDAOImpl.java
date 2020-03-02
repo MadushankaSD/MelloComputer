@@ -10,13 +10,20 @@ import java.util.List;
 
 @Repository
 public class ItemDAOImpl extends CrudDAOImpl<Item,String> implements ItemDAO {
+
+
     @Override
-    public String getLastItemId() {
-        return null;
+    public String getItemId(String name) {
+        return (String) entityManager.createQuery("SELECT i.itemCode FROM Item i WHERE i.description = ?1").setParameter(1,name).setMaxResults(1).getSingleResult();
     }
 
     @Override
     public List<Item> searchItem(String data) {
         return entityManager.createQuery("SELECT i FROM Item i WHERE i.description LIKE ?1 OR i.qtyOnHand = ?1 OR i.itemCode LIKE ?1", Item.class).setParameter(1,data).getResultList();
+    }
+
+    @Override
+    public void updateQty(String id, long qty) {
+        entityManager.createQuery("UPDATE Item i SET i.qtyOnHand=(i.qtyOnHand-?1) WHERE i.itemCode=?2").setParameter(1,qty).setParameter(2,id);
     }
 }

@@ -12,6 +12,7 @@ public class Order implements SuperEntity{
     @Id
     private String id;
     private Date date;
+    private String customerName;
 
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "customerId", referencedColumnName = "customerId")
@@ -26,10 +27,19 @@ public class Order implements SuperEntity{
     public Order() {
     }
 
-    public Order(String id, Date date, Customer customer) {
+    public Order(String id, Date date, String customerName, Customer customer) {
         this.id = id;
         this.date = date;
+        this.customerName = customerName;
         this.customer = customer;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getId() {

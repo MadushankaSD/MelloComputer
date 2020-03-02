@@ -19,6 +19,15 @@ public class CustomerDAOImpl extends CrudDAOImpl<Customer,String> implements Cus
     }
 
     @Override
+    public Customer getCustomerByName(String name) {
+        try {
+            return entityManager.createQuery("SELECT c FROM Customer c WHERE c.name = ?1",Customer.class).setParameter(1,name).getSingleResult();
+        }catch (Exception e){
+            return null;
+        }
+    }
+
+    @Override
     public List<Customer> searchCustomer(String data) {
         return entityManager.createQuery("SELECT c FROM Customer c WHERE c.name LIKE ?1",Customer.class).setParameter(1,data).getResultList();
     }

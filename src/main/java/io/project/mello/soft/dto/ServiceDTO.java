@@ -1,29 +1,19 @@
-package io.project.mello.soft.entity;
+package io.project.mello.soft.dto;
 
-import org.springframework.jmx.export.annotation.ManagedOperation;
-
-import javax.persistence.*;
-
-@Entity
-public class Service implements SuperEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long serviceId;
+public class ServiceDTO {
     private String discription;
     private Double serviceCharge;
+    private String orderId;
     private long warranty;
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    @JoinColumn(name = "orderId",referencedColumnName = "id",nullable = false)
-    private Order order;
 
-    public Service() {
+    public ServiceDTO() {
     }
 
-    public Service(String discription, Double serviceCharge, long warranty, Order order) {
+    public ServiceDTO(String discription, Double serviceCharge, String orderId, long warranty) {
         this.discription = discription;
         this.serviceCharge = serviceCharge;
+        this.orderId = orderId;
         this.warranty = warranty;
-        this.order = order;
     }
 
     public String getDiscription() {
@@ -42,12 +32,12 @@ public class Service implements SuperEntity {
         this.serviceCharge = serviceCharge;
     }
 
-    public Order getOrder() {
-        return order;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public long getWarranty() {
@@ -60,10 +50,10 @@ public class Service implements SuperEntity {
 
     @Override
     public String toString() {
-        return "Service{" +
+        return "ServiceDTO{" +
                 "discription='" + discription + '\'' +
                 ", serviceCharge=" + serviceCharge +
-                ", order=" + order +
+                ", orderId='" + orderId + '\'' +
                 '}';
     }
 }

@@ -46,15 +46,17 @@ public class ItemBOImpl implements ItemBO {
 
     @Transactional(readOnly = true)
     @Override
-    public String getLastItemId() {
-        return null;
+    public String getItemId(String name) {
+        return itemDAO.getItemId(name);
     }
+
+
 
     @Transactional(readOnly = true)
     @Override
     public ItemDTO findItem(String itemId){
-        Item item = itemDAO.find(itemId);
-        return new ItemDTO(item.getDescription(),item.getUnitPrice(),item.getQtyOnHand());
+            Item item = itemDAO.find(itemId);
+            return new ItemDTO(item.getDescription(),item.getUnitPrice(),item.getQtyOnHand());
     }
 
     @Transactional(readOnly = true)

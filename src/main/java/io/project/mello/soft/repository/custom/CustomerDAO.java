@@ -10,6 +10,8 @@ public interface CustomerDAO extends CrudDAO<Customer, String> {
 
     String getLastCustomerId();
 
+    Customer getCustomerByName(String name);
+
     List<Customer> searchCustomer(String data);
 
 }

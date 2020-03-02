@@ -31,36 +31,39 @@
             <Font name="FreeSerif" size="60.0" />
          </font>
       </Text>
-      <JFXButton layoutX="779.0" layoutY="31.0" onAction="#btnNewOrderOnAction" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #587ad0;" text="+ NEW ORDER">
+      <JFXButton buttonType="RAISED" layoutX="779.0" layoutY="31.0" onAction="#btnNewOrderOnAction" prefHeight="26.0" prefWidth="146.0" ripplerFill="BLACK" style="-fx-background-color: #587ad0;" text="+ NEW ORDER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="txtItemCode" labelFloat="true" layoutX="22.0" layoutY="110.0" prefHeight="26.0" prefWidth="226.0" promptText="Item Code" />
-      <JFXTextField fx:id="customerName" labelFloat="true" layoutX="22.0" layoutY="155.0" onKeyTyped="#onKeyTyped" prefHeight="26.0" prefWidth="226.0" promptText="Customer Name/Code" />
+      <JFXTextField fx:id="txtItemCode" labelFloat="true" layoutX="22.0" layoutY="110.0" onKeyPressed="#itemCodeEnter" prefHeight="26.0" prefWidth="226.0" promptText="Item Code" />
+      <JFXTextField fx:id="customerName" labelFloat="true" layoutX="22.0" layoutY="155.0" onKeyPressed="#onKeyTyped" prefHeight="26.0" prefWidth="226.0" promptText="Customer Name/Code" />
       <JFXTextField fx:id="txtItemName" labelFloat="true" layoutX="282.0" layoutY="111.0" prefHeight="26.0" prefWidth="415.0" promptText="Item Name" />
       <JFXTextField fx:id="textItemQtyOnHand" labelFloat="true" layoutX="727.0" layoutY="111.0" prefHeight="26.0" prefWidth="184.0" promptText="Qty On Hand " />
       <JFXTextField fx:id="txtItemUnitPrice" labelFloat="true" layoutX="727.0" layoutY="159.0" prefHeight="26.0" prefWidth="184.0" promptText="Unit Price" />
-      <JFXTextField fx:id="txtItemDiscount" labelFloat="true" layoutX="727.0" layoutY="264.0" prefHeight="26.0" prefWidth="184.0" promptText="Discount" />
-      <JFXTextField fx:id="txtItemQty" labelFloat="true" layoutX="727.0" layoutY="211.0" prefHeight="26.0" prefWidth="184.0" promptText="Qty" />
+      <JFXTextField fx:id="txtItemDiscount" labelFloat="true" layoutX="727.0" layoutY="264.0" onKeyPressed="#discountEnter" prefHeight="26.0" prefWidth="184.0" promptText="Discount Per Unit" />
+      <JFXTextField fx:id="txtItemQty" labelFloat="true" layoutX="727.0" layoutY="211.0" onKeyPressed="#qtyEnter" prefHeight="26.0" prefWidth="184.0" promptText="Qty" />
       <Line endX="502.0" layoutX="200.0" layoutY="223.0" startX="-181.0" stroke="#f20000" />
       <Text fill="RED" layoutX="22.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Service:" />
-      <JFXTextField fx:id="serviceDescription" labelFloat="true" layoutX="22.0" layoutY="242.0" prefHeight="26.0" prefWidth="608.0" promptText="Srivice Description" />
-      <JFXButton fx:id="btnAddToBill" layoutX="271.0" layoutY="337.0" onAction="#btnAddToBillOnAction" prefHeight="26.0" prefWidth="404.0" style="-fx-background-color: #6abf43;" text="ADD TO Bill">
+      <JFXTextField fx:id="serviceDescription" labelFloat="true" layoutX="22.0" layoutY="242.0" onKeyPressed="#serviceEnter" prefHeight="26.0" prefWidth="608.0" promptText="Srivice Description" />
+      <JFXButton fx:id="btnAddToBill" buttonType="RAISED" layoutX="271.0" layoutY="337.0" onAction="#btnAddToBillOnAction" onKeyPressed="#addToBillButonKey" prefHeight="26.0" prefWidth="404.0" ripplerFill="BLACK" style="-fx-background-color: #6abf43;" text="ADD TO Bill (Shift)">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </JFXButton>
-      <TableView fx:id="tblPlaceOrder" layoutX="11.0" layoutY="372.0" prefHeight="154.0" prefWidth="927.0">
+      <TableView fx:id="tblPlaceOrder" layoutY="372.0" prefHeight="154.0" prefWidth="947.0">
         <columns>
           <TableColumn prefWidth="188.0" text="Item Name" />
           <TableColumn prefWidth="50.0" text="Qty" />
             <TableColumn prefWidth="82.0" text="Unit Price" />
             <TableColumn prefWidth="76.0" text="Discount" />
             <TableColumn prefWidth="291.0" text="Service" />
-            <TableColumn prefWidth="81.0" text="Warranty" />
-            <TableColumn prefWidth="90.0" text="SubTotal" />
-            <TableColumn prefWidth="68.0" text="Delete" />
+            <TableColumn prefWidth="75.0" text="Warranty" />
+            <TableColumn prefWidth="88.0" text="SubTotal" />
+            <TableColumn fx:id="btnDelete" prefWidth="95.0" text="Delete" />
         </columns>
       </TableView>
       <Text layoutX="692.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" wrappingWidth="66.00000396370888">
@@ -73,21 +76,22 @@
             <Font size="23.0" />
          </font>
       </Text>
-      <JFXTextField fx:id="serviceCharge" labelFloat="true" layoutX="22.0" layoutY="290.0" prefHeight="26.0" prefWidth="226.0" promptText="Service Charge" />
+      <JFXTextField fx:id="serviceCharge" labelFloat="true" layoutX="22.0" layoutY="290.0" onKeyPressed="#serviceChargeEnter" prefHeight="26.0" prefWidth="226.0" promptText="Service Charge" />
       <Text fx:id="txtDate" layoutX="101.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="138.07177734375" />
-      <Spinner fx:id="txtItemWarranty" editable="true" layoutX="727.0" layoutY="324.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="26.0" prefWidth="131.0">
+      <Spinner fx:id="txtItemWarranty" editable="true" layoutX="727.0" layoutY="324.0" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#warrantyEnter" prefHeight="26.0" prefWidth="131.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Spinner>
       <Text layoutX="864.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Months" wrappingWidth="47.5185546875" />
       <Text layoutX="728.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Warranty" wrappingWidth="66.00001807510853" />
-      <JFXButton fx:id="btnPlaceOrder" layoutX="515.0" layoutY="540.0" onAction="#btnPlaceOrderOnAction" prefHeight="26.0" prefWidth="146.0" style="-fx-background-color: #49e2ea;" text="PLACE ORDER">
+      <JFXButton fx:id="btnPlaceOrder" buttonType="RAISED" layoutX="483.0" layoutY="540.0" onAction="#btnPlaceOrderOnAction" onKeyPressed="#placeOrderButtonKey" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #49e2ea;" text="PLACE ORDER (Alt)">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="txtRecervedAmount" labelFloat="true" layoutX="18.0" layoutY="543.0" prefHeight="26.0" prefWidth="226.0" promptText="Recerved Amount" />
-      <JFXListView fx:id="customerNameList" layoutX="22.0" layoutY="185.0" prefHeight="222.0" prefWidth="226.0" />
+      <JFXTextField fx:id="txtRecervedAmount" labelFloat="true" layoutX="18.0" layoutY="543.0" onKeyPressed="#recerveAmountEnter" prefHeight="26.0" prefWidth="226.0" promptText="Recerved Amount" />
+      <JFXListView fx:id="customerNameList" layoutX="22.0" layoutY="184.0" prefHeight="222.0" prefWidth="226.0" />
+      <Text fx:id="txtOrderId" layoutX="895.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" />
    </children>
 </AnchorPane>

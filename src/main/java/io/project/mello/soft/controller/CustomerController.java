@@ -175,7 +175,6 @@ public class CustomerController extends HomeImageController {
         btnClear.setDisable(false);
         tblCustomer.getSelectionModel().clearSelection();
 
-        int maxId = 0;
 
         try {
             String lastCustomerId = customerBO.getLastCustomerId();

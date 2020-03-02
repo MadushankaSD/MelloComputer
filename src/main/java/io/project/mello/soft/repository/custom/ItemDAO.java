@@ -7,7 +7,9 @@ import io.project.mello.soft.repository.CrudDAO;
 import java.util.List;
 
 public interface ItemDAO extends CrudDAO<Item,String> {
-    String getLastItemId();
+    String getItemId(String name);
 
     List<Item> searchItem(String data);
+
+    void updateQty(String id, long qty);
 }
