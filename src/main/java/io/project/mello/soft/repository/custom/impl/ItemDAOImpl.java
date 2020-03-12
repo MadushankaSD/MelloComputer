@@ -24,6 +24,6 @@ public class ItemDAOImpl extends CrudDAOImpl<Item,String> implements ItemDAO {
 
     @Override
     public void updateQty(String id, long qty) {
-        entityManager.createQuery("UPDATE Item i SET i.qtyOnHand=(i.qtyOnHand-?1) WHERE i.itemCode=?2").setParameter(1,qty).setParameter(2,id);
+        entityManager.createQuery("UPDATE Item i SET i.qtyOnHand=(i.qtyOnHand-?1) WHERE i.itemCode=?2").setParameter(1,qty).setParameter(2,id).executeUpdate();
     }
 }

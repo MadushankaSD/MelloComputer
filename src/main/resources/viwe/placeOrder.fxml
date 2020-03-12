@@ -31,7 +31,7 @@
             <Font name="FreeSerif" size="60.0" />
          </font>
       </Text>
-      <JFXButton buttonType="RAISED" layoutX="779.0" layoutY="31.0" onAction="#btnNewOrderOnAction" prefHeight="26.0" prefWidth="146.0" ripplerFill="BLACK" style="-fx-background-color: #587ad0;" text="+ NEW ORDER">
+      <JFXButton fx:id="newOrder" buttonType="RAISED" layoutX="779.0" layoutY="31.0" onAction="#btnNewOrderOnAction" onKeyTyped="#newOrderEnterButton" prefHeight="26.0" prefWidth="146.0" ripplerFill="BLACK" style="-fx-background-color: #587ad0;" text="+ NEW ORDER">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>
@@ -63,7 +63,7 @@
             <TableColumn prefWidth="291.0" text="Service" />
             <TableColumn prefWidth="75.0" text="Warranty" />
             <TableColumn prefWidth="88.0" text="SubTotal" />
-            <TableColumn fx:id="btnDelete" prefWidth="95.0" text="Delete" />
+            <TableColumn prefWidth="95.0" text="Delete" />
         </columns>
       </TableView>
       <Text layoutX="692.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:" wrappingWidth="66.00000396370888">
@@ -92,6 +92,6 @@
       </JFXButton>
       <JFXTextField fx:id="txtRecervedAmount" labelFloat="true" layoutX="18.0" layoutY="543.0" onKeyPressed="#recerveAmountEnter" prefHeight="26.0" prefWidth="226.0" promptText="Recerved Amount" />
       <JFXListView fx:id="customerNameList" layoutX="22.0" layoutY="184.0" prefHeight="222.0" prefWidth="226.0" />
-      <Text fx:id="txtOrderId" layoutX="895.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" />
+      <Text fx:id="txtOrderId" layoutX="585.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Id" textAlignment="RIGHT" wrappingWidth="338.99998396635056" />
    </children>
 </AnchorPane>

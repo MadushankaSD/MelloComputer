@@ -10,10 +10,13 @@ import io.project.mello.soft.entity.OrderDetails;
 import io.project.mello.soft.entity.Service;
 import io.project.mello.soft.repository.custom.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
 import java.util.List;
 
 
@@ -31,8 +34,7 @@ public class OrderBOImpl implements OrderBO {
     @Autowired
     private ItemDAO itemDAO;
 
-
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     @Override
     public void placeOrder(OrderDTO service) {
         Order order;
@@ -65,5 +67,11 @@ public class OrderBOImpl implements OrderBO {
     @Override
     public String getLastOrderId() {
         return orderDAO.getLastOrderId();
+    }
+
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Override
+    public double getDailyCollection(Date day) {
+       return orderDAO.getDailyCollection(day);
     }
 }

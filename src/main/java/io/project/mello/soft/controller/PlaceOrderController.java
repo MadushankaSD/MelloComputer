@@ -11,16 +11,22 @@ import io.project.mello.soft.dto.*;
 import io.project.mello.soft.tm.PlaceOrderTM;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.springframework.context.annotation.Bean;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static javafx.scene.input.KeyCode.*;
 
@@ -44,7 +50,8 @@ public class PlaceOrderController extends HomeImageController{
     public JFXTextField customerName;
     public JFXListView<String> customerNameList;
     public Text txtOrderId;
-    public TableColumn btnDelete;
+    public JFXButton newOrder;
+
 
     private ItemBO itemBO = Appinitializer.ctx.getBean(ItemBO.class);
     private CustomerBO customerBO = Appinitializer.ctx.getBean(CustomerBO.class);
@@ -59,7 +66,7 @@ public class PlaceOrderController extends HomeImageController{
         textItemQtyOnHand.setEditable(false);
         txtItemUnitPrice.setEditable(false);
         customerNameList.setVisible(false);
-
+        newOrder.requestFocus();
         txtItemDiscount.setText("0");
 
         initialState();
@@ -87,30 +94,13 @@ public class PlaceOrderController extends HomeImageController{
         customerNameList.getSelectionModel().getSelectedItems().addListener((ListChangeListener<? super String>) observable -> {
             String selectedItem = customerNameList.getSelectionModel().getSelectedItem();
 
-            if(!selectedItem.equals("") || !selectedItem.equals(null)){
+            if(!selectedItem.equals("")){
                 customerName.setText(selectedItem);
             }
             customerNameList.setVisible(false);
         });
-
-        /*tblPlaceOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue1) ->  {
-            PlaceOrderTM selectedItem = tblPlaceOrder.getSelectionModel().getSelectedItem();
-            Button delete = tblPlaceOrder.getSelectionModel().getSelectedItem().getDelete();
-            if(delete.isPressed()){
-                System.out.println("done");
-            }
-        });*/
-
-        tblPlaceOrder.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue1) -> {
-            PlaceOrderTM selectedItem = tblPlaceOrder.getSelectionModel().getSelectedItem();
-            Button delete = selectedItem.getDelete();
-            if(delete.isPressed()){
-                System.out.println("done");
-            }
-        });
-
-
     }
+
 
     private void getCustomerName(String newValue) {
         List<CustomerDTO> searchCustomer = customerBO.searchCustomer(newValue + "%");
@@ -120,7 +110,6 @@ public class PlaceOrderController extends HomeImageController{
              searchCustomer) {
             items.add(data.getName());
         }
-
     }
 
     private void getItemDetail(String newValue) {
@@ -166,8 +155,6 @@ public class PlaceOrderController extends HomeImageController{
     }
 
     public void btnAddToBillOnAction() {
-        btnPlaceOrder.setDisable(false);
-        ObservableList<PlaceOrderTM> orders = tblPlaceOrder.getItems();
 
       /*boolean isExists = false;
         for (PlaceOrderTM detail : tblPlaceOrder.getItems()) {
@@ -186,54 +173,71 @@ public class PlaceOrderController extends HomeImageController{
         }
         if(!isExists){}*/
 
-        if(!serviceDescription.getText().isEmpty()){
-            JFXButton btnDelete = new JFXButton("Delete");
-            PlaceOrderTM placeOrderTM = new PlaceOrderTM(serviceDescription.getText(), txtItemWarranty.getValue(), Double.parseDouble(serviceCharge.getText()), btnDelete);
-            btnDelete.setOnAction(event -> {
-                double subTotal = placeOrderTM.getSubTotal();
-                Total-=subTotal;
-                txtTotal.setText(String.valueOf(Total));
-                tblPlaceOrder.getItems().remove(placeOrderTM);
 
-            });
-            orders.add(placeOrderTM);
-            Total+=Double.parseDouble(serviceCharge.getText());
 
-            clearState();
-        }
-        if(!txtItemCode.getText().isEmpty()){
+            btnPlaceOrder.setDisable(false);
+            txtRecervedAmount.setDisable(false);
+            ObservableList<PlaceOrderTM> orders = tblPlaceOrder.getItems();
 
-            JFXButton btnDelete = new JFXButton("Delete");
+            if (!serviceDescription.getText().isEmpty()) {
+                JFXButton btnDelete = new JFXButton("Delete");
+                PlaceOrderTM placeOrderTM = new PlaceOrderTM(serviceDescription.getText(), txtItemWarranty.getValue(), Double.parseDouble(serviceCharge.getText()), btnDelete);
+                btnDelete.setOnAction(event -> {
+                    double subTotal = placeOrderTM.getSubTotal();
+                    Total -= subTotal;
+                    txtTotal.setText(String.valueOf(Total));
+                    tblPlaceOrder.getItems().remove(placeOrderTM);
 
-            double subTotal = (Double.parseDouble(txtItemUnitPrice.getText())-Double.parseDouble(txtItemDiscount.getText()))*Integer.parseInt(txtItemQty.getText());
-            double discount = Integer.parseInt(txtItemQty.getText())*Double.parseDouble(txtItemDiscount.getText());
-            PlaceOrderTM delete = new PlaceOrderTM(
-                    txtItemName.getText(),
-                    Integer.parseInt(txtItemQty.getText()),
-                    Double.parseDouble(txtItemUnitPrice.getText()),
-                    discount,
-                    txtItemWarranty.getValue(),
-                    subTotal,
-                    btnDelete
-                    );
+                });
+                orders.add(placeOrderTM);
+                Total += Double.parseDouble(serviceCharge.getText());
+
+                clearState();
+            }
+
+
+
+            if (!txtItemCode.getText().isEmpty()) {
+                if (Integer.parseInt(textItemQtyOnHand.getText()) >= Integer.parseInt(txtItemQty.getText())) {
+
+                JFXButton btnDelete = new JFXButton("Delete");
+
+                double subTotal = (Double.parseDouble(txtItemUnitPrice.getText()) - Double.parseDouble(txtItemDiscount.getText())) * Integer.parseInt(txtItemQty.getText());
+                double discount = Integer.parseInt(txtItemQty.getText()) * Double.parseDouble(txtItemDiscount.getText());
+                PlaceOrderTM delete = new PlaceOrderTM(
+                        txtItemName.getText(),
+                        Integer.parseInt(txtItemQty.getText()),
+                        Double.parseDouble(txtItemUnitPrice.getText()),
+                        discount,
+                        txtItemWarranty.getValue(),
+                        subTotal,
+                        btnDelete
+                );
                 btnDelete.setOnAction(event -> {
                     double subTotal1 = delete.getSubTotal();
-                    Total-=subTotal1;
+                    Total -= subTotal1;
                     txtTotal.setText(String.valueOf(Total));
                     tblPlaceOrder.getItems().remove(delete);
                 });
-            orders.add(delete);
-            Total+=subTotal;
-            clearState();
+                orders.add(delete);
+                Total += subTotal;
+                clearState();
 
 
-        }
-        txtTotal.setText(String.valueOf(Total));
-        txtItemCode.requestFocus();
+
+            }else {
+                    new Alert(Alert.AlertType.WARNING,"Not Much Items To Place Order",ButtonType.OK).show();
+                    txtItemQty.requestFocus();
+                    return;
+                }
+         }
+            txtItemCode.requestFocus();
+            txtTotal.setText(String.valueOf(Total));
     }
 
-    public void btnPlaceOrderOnAction() {
 
+    public void btnPlaceOrderOnAction() {
+   txtRecervedAmount.setDisable(false);
         List<ServiceDTO> services = new ArrayList<>();
         List<OrderDetailDTO> orders = new ArrayList<>();
 
@@ -247,6 +251,24 @@ public class PlaceOrderController extends HomeImageController{
 
         orderBO.placeOrder(new OrderDTO(txtOrderId.getText(),Date.valueOf(LocalDate.now()),newValue,services,orders));
 
+
+        BalanceController.totalfrom=Total;
+        BalanceController.recerved= txtRecervedAmount.getText();
+
+        FXMLLoader fxmlLoader= new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/viwe/balacepage.fxml"));
+        Scene scene= null;
+        try {
+            scene = new Scene(fxmlLoader.load(),449,177);
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.CONFIRMATION,"Something went wrong",ButtonType.OK).show();
+            Logger.getLogger("").log(Level.SEVERE,null,e);
+        }
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+
         initialState();
         clearState();
         tblPlaceOrder.getItems().clear();
@@ -254,7 +276,6 @@ public class PlaceOrderController extends HomeImageController{
         Total=0;
         txtTotal.setText("0.00");
         customerName.clear();
-
     }
 
     private void initialState(){
@@ -273,6 +294,7 @@ public class PlaceOrderController extends HomeImageController{
 
         btnAddToBill.setDisable(true);
         btnPlaceOrder.setDisable(true);
+        txtRecervedAmount.setDisable(true);
     }
 
     private void clearState(){
@@ -308,7 +330,6 @@ public class PlaceOrderController extends HomeImageController{
         txtItemQty.setDisable(false);
         serviceCharge.setDisable(false);
         serviceDescription.setDisable(false);
-        txtRecervedAmount.setDisable(false);
         txtItemWarranty.setDisable(false);
         customerName.setDisable(false);
 
@@ -356,8 +377,13 @@ public class PlaceOrderController extends HomeImageController{
 
     public void serviceEnter(KeyEvent keyEvent) {
         if(keyEvent.getCode() == ENTER){
-            serviceCharge.requestFocus();
+            if(serviceDescription.getText().equals("")){
+                txtRecervedAmount.requestFocus();
+            }else {
+                serviceCharge.requestFocus();
+            }
         }
+
     }
 
     public void addToBillButonKey(KeyEvent keyEvent) {
@@ -385,6 +411,12 @@ public class PlaceOrderController extends HomeImageController{
     public void recerveAmountEnter(KeyEvent keyEvent) {
         if(keyEvent.getCode() == ENTER){
             btnPlaceOrder.requestFocus();
+        }
+    }
+
+    public void newOrderEnterButton(KeyEvent keyEvent) {
+        if(keyEvent.getCode()==ENTER){
+            btnNewOrderOnAction();
         }
     }
 }
